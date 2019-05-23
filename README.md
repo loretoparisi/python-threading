@@ -41,5 +41,39 @@ from util.bounded_pool_executor import BoundedProcessPoolExecutor
 process_executor = BoundedProcessPoolExecutor(max_workers=5)
 ```
 
+# Using in Tornado Web Server
+To use these decorators in Tornado you can import the `BoundedThreadPoolExecutor` in conjuction with the Tornado `@tornado.concurrent.run_on_executor` decorator like
+
+```python
+import tornado
+from util.bounded_pool_executor import BoundedThreadPoolExecutor
+
+class MyHandler(tornado.web.RequestHandler):
+    executor = BoundedThreadPoolExecutor(max_workers=5)
+    @tornado.concurrent.run_on_executor
+    def get(self, *args):
+       serve_request()
+```
+
+or you can simply import the `threadpool`
+
+```python
+import tornado
+from thread_support import threadpool
+
+@threadpool
+def my_high_load_task(self):
+  res = do_job()
+  return res
+  
+class MyHandler(tornado.web.RequestHandler):
+    @tornado.web.asynchronous
+    def get(self, *args):
+       task = my_high_load_task()
+       res = task.result()
+       response()
+```
+
+
 # Disclaimer
 Source code adapted from different sources.
