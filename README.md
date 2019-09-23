@@ -76,4 +76,9 @@ class MyHandler(tornado.web.RequestHandler):
 
 
 # Disclaimer
-Source code adapted from different sources.
+Source code adapted from different sources:
+
+- [TheadPoolExecutor with a bounded queue in Python](https://www.bettercodebytes.com/theadpoolexecutor-with-a-bounded-queue-in-python/)
+
+- [mowshon/bounded_pool_executor](https://github.com/mowshon/bounded_pool_executor)
+
